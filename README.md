@@ -1,6 +1,33 @@
 # RealState API 
-# 📄 Location Database Table Structure
+# 📄 Property Type Database Table Structure
+This document outlines the structure of the **Property Classification** portion of the database, consisting of two related tables:
 
+- `Property_Category`
+- `Property_Type`
+## 🏘️ Property Database Chart
+![Database Schema](image/PropertyType.png)
+---
+### 📂 Property_Category Table
+
+| Column        | Type    | Description                        |
+|---------------|---------|------------------------------------|
+| `id`          | int     | Primary key, auto-incremented.     |
+| `category_en` | string  | Category name in English.          |
+| `category_ar` | string  | Category name in Arabic.           |
+
+---
+
+### 🏷️ Property_Type Table
+
+| Column     | Type    | Description                                                               |
+|------------|---------|---------------------------------------------------------------------------|
+| `id`       | int     | Primary key, auto-incremented.                                            |
+| `type_en`  | string  | Property type name in English.                                            |
+| `type_ar`  | string  | Property type name in Arabic.                                             |
+| `category_id` | int  | Foreign key referencing `Property_Category.id`, links type to a category. |
+
+# 📄 Location Database Table Structure
+---
 This project includes a structured database of **Countries**, **Cities**, and **Areas**, designed with clarity and integrity using foreign key relationships. Below is a detailed explanation of each table and its columns.
 
 ---
@@ -43,4 +70,3 @@ This project includes a structured database of **Countries**, **Cities**, and **
 
 ---
 
-> ✅ This design ensures data normalization, easy filtering by active/inactive status, and scalable geographical relationships.
