@@ -42,3 +42,13 @@ class AreaTable(models.Model):
 
     def __str__(self):
         return self.Area_en
+    
+#-----------------------------------------#
+#-------Currency table from API ----------#
+class CurrencyConverter(models.Model):
+    base_currency = models.CharField(max_length=3)  # Always EGP for now
+    target_currency = models.CharField(max_length=3)               # USD, EUR, etc.
+    rate = models.DecimalField(max_digits=10, decimal_places=5) 
+
+    def __str__(self):
+        return f"{self.base_currency} → {self.target_currency}: {self.rate}"
