@@ -70,3 +70,29 @@ This project includes a structured database of **Countries**, **Cities**, and **
 
 ---
 
+# 💱 Currency Converter Integration
+This Django project include integrates with a **currency exchange API** to fetch real-time exchange rates, store them in a database, and reduce repetitive API calls by populating a local table once per day.
+
+---
+
+## 🚀 Features
+
+- Fetches exchange rates from a reliable currency API (e.g., [ExchangeRate-API](https://www.exchangerate-api.com/))
+- Stores exchange rates in a database table `CurrencyConverter`
+- Supports converting from a **base currency** (e.g., `EGP`) to over 100+ currencies
+- Avoids unnecessary API calls by updating rates only **once per day**
+- Custom Django management command: `update_currencies`
+
+---
+
+## 📦 Table Structure
+
+The `CurrencyConverter` model includes:
+
+| Field           | Type     | Description                            |
+|----------------|----------|----------------------------------------|
+| base_currency  | CharField | The base currency code (e.g., `EGP`)   |
+| target_currency| CharField | The target currency code (e.g., `USD`) |
+| rate           | Float     | Conversion rate (e.g., `1 EGP = 0.01994 USD`) |
+
+---
