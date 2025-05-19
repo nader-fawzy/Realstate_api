@@ -6,7 +6,8 @@ from TypeTable.models import CurrencyConverter
 # API_KEY = 'YOUR_API_KEY'  # replace with your real API key
 BASE_CURRENCY = 'EGP'
 API_URL = f"https://v6.exchangerate-api.com/v6/ad987113192e3d737031b368/latest/{BASE_CURRENCY}"  # or use another provider
-
+# target currancies : List only the currencies you want to save at database
+target_currancies=['EGP','USD','EUR','SAR','AED','KWD']  
 class Command(BaseCommand):
     help = 'Update currency exchange rates'
 
@@ -14,13 +15,13 @@ class Command(BaseCommand):
         try:
             response = requests.get(API_URL)
             data = response.json()
-
+            
             if data.get("result") == "success":
                 rates = data.get("conversion_rates", {})
                 count = 0
 
                 for target, rate in rates.items():
-                    if target == BASE_CURRENCY:
+                    if target not in  target_currancies: # to select only choosen currency 
                         continue
 
                     CurrencyConverter.objects.update_or_create(
