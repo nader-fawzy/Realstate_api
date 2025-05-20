@@ -63,21 +63,21 @@ class CurrencyConverter(models.Model):
 #-------Property table  ------------------#
 
 class Property(models.Model):
-    PROPERTY_TYPES = [
-        ('Residential',_('Residential Types')),
-        ('apartment', _('Apartment')),
-        ('house', _('House')),
-        ('villa', _('Villa')),
-        ('penthouse', _('Penthouse')),
-        ('duplex', _('Duplex')),
-        ('studio', _('Studio')),
-        ('chalet', _('Chalet')),
-        ('Commercial', _('Commercial Types')),
-        ('office', _('Office')),
-        ('retail', _('Retail Space')),
-        ('shop', _('Shop')),
-        ('warehouse', _('Warehouse')),
-    ]
+    # PROPERTY_TYPES = [
+    #     ('Residential',_('Residential Types')),
+    #     ('apartment', _('Apartment')),
+    #     ('house', _('House')),
+    #     ('villa', _('Villa')),
+    #     ('penthouse', _('Penthouse')),
+    #     ('duplex', _('Duplex')),
+    #     ('studio', _('Studio')),
+    #     ('chalet', _('Chalet')),
+    #     ('Commercial', _('Commercial Types')),
+    #     ('office', _('Office')),
+    #     ('retail', _('Retail Space')),
+    #     ('shop', _('Shop')),
+    #     ('warehouse', _('Warehouse')),
+    # ]
 
     PAYMENT_CHOICES=[
         ('cash',_('Cash')),

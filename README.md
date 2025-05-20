@@ -85,14 +85,35 @@ This Django project include integrates with a **currency exchange API** to fetch
 
 ---
 
-## 📦 Table Structure
+## 📦 `CurrencyConverter` Table Structure
 
-The `CurrencyConverter` model includes:
-
-| Field           | Type     | Description                            |
-|----------------|----------|----------------------------------------|
-| base_currency  | CharField | The base currency code (e.g., `EGP`)   |
-| target_currency| CharField | The target currency code (e.g., `USD`) |
-| rate           | Float     | Conversion rate (e.g., `1 EGP = 0.01994 USD`) |
+| Field            | Type      | Description                                       |
+|------------------|-----------|---------------------------------------------------|
+| `base_currency`  | CharField | The currency from which conversion starts (e.g., `EGP`) |
+| `target_currency`| CharField | The destination currency (e.g., `USD`, `EUR`)    |
+| `rate`           | Float     | The conversion rate stored for that day          |
 
 ---
+
+# 🏡 Property Currency Conversion
+
+### 🔁 `/get_all_property/` Endpoint
+
+This endpoint returns all properties with their prices **converted into a selected currency** .
+
+- Conversion is dynamic based on stored exchange rates.
+- Default target currency can be customized from the frontend or request params (TBD).
+
+### 🔧 Currency Conversion Logic
+
+Utility function:
+
+```python
+def property_convert_currancy(property_price, property_c, target_c):
+    currancy_rate = CurrencyConverter.objects.values('target_currency', 'rate')
+    rate_dict = {item['target_currency']: item['rate'] for item in currancy_rate}
+    rate_from = rate_dict[property_c]
+    rate_to = rate_dict[target_c]
+    property_price = Decimal(property_price)
+    converted_amount = (property_price / rate_from) * rate_to
+    return round(converted_amount, 2)
