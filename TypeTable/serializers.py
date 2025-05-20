@@ -1,4 +1,4 @@
-from .models import PropertyCategory,PropertyType,CountryTable,CityTable,AreaTable
+from .models import PropertyCategory,PropertyType,CountryTable,CityTable,AreaTable,Property
 from rest_framework import serializers
 
 
@@ -31,3 +31,9 @@ class AreaTableSerilizer(serializers.ModelSerializer):
     class Meta:
         model=AreaTable
         fields='__all__'
+
+
+class PropertySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Property
+        fields = '__all__'

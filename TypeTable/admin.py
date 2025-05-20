@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import PropertyCategory,PropertyType,CountryTable,CityTable,AreaTable,CurrencyConverter
+from .models import PropertyCategory,PropertyType,CountryTable,CityTable,AreaTable,CurrencyConverter,Property
 # Register your models here.
 
 admin.site.register(PropertyType)
@@ -10,3 +10,4 @@ admin.site.register(CountryTable)
 admin.site.register(CityTable)
 admin.site.register(AreaTable)
 admin.site.register(CurrencyConverter)
+admin.site.register(Property)

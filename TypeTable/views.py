@@ -1,13 +1,13 @@
 from django.shortcuts import render
 
 # Create your views here.
-from .models import PropertyCategory ,PropertyType ,CityTable,CountryTable,AreaTable
-from .serializers import PropertyTypeSerilizer ,PropertyCategorySerilizer ,CityTableSerilizer ,CountryTableSerilizer,AreaTableSerilizer
+from .models import PropertyCategory ,PropertyType ,CityTable,CountryTable,AreaTable,Property,CurrencyConverter
+from .serializers import PropertyTypeSerilizer ,PropertyCategorySerilizer ,CityTableSerilizer ,CountryTableSerilizer,AreaTableSerilizer,PropertySerializer
 # Create your views here.
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-
+from decimal import Decimal, InvalidOperation
 
 
 
@@ -172,3 +172,29 @@ def get_area(request,pk):
 ##############---- Area table end ------#############
 
 #---------------------------------------------------------#
+
+# fun input is C_target , rate , property 
+def property_convert_currancy( property_price, property_c, target_c):
+    currancy_rate = CurrencyConverter.objects.values('target_currency', 'rate')  # use value to return dictionary
+    rate_dict = {item['target_currency']: item['rate'] for item in currancy_rate}
+    rate_from = rate_dict[property_c]
+    rate_to = rate_dict[target_c]
+    property_price = Decimal(property_price)
+    converted_amount = (property_price / rate_from) * rate_to
+    return round(converted_amount, 2)
+
+
+@api_view(['GET'])
+def get_all_property(request):
+    all_property = Property.objects.all()
+    serializer= PropertySerializer(all_property, many=True)
+
+    target_c='USD'    # CHANGE THIS value and make it dinamic
+    for prop in serializer.data:
+        orignal_price=prop["price"]
+        saved_currancy=prop["currency"]
+        converted_amount=property_convert_currancy(orignal_price,saved_currancy,target_c)
+        prop["price"]=converted_amount
+        prop["currency"]=target_c
+
+    return Response(serializer.data)
